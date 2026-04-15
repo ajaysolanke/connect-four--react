@@ -1,9 +1,7 @@
 import { GAME_STATUS } from "../App"
-// import { styled } from "styled-components";
 import classes from "./Game.module.css";
 import Disc from "./Disc";
 import useBoard from "../hooks/useGame";
-import StartGame from "./GameStatus";
 import DropDisc from "./DropDisc";
 import GameStatus from "./GameStatus";
 import GameOptions from "./GameOptions";
@@ -18,7 +16,6 @@ export default function Game(){
     resetGame,
     handleClick,
     handleMouseEnter,
-    playerToColor,
     dropRow,
     dropCol,
     dropStatus,
@@ -62,7 +59,6 @@ export default function Game(){
             <Disc
               key={i}
               t={t}
-              i={i}
               handleClick={() => handleClick(i)}
               handleMouseEnter={() => handleMouseEnter(i)}
             />

@@ -19,7 +19,7 @@ export default function useBoard() {
   const [board, setBoard] = useState(initBoardState);
   const [colTop, setColTop] = useState(initColTop);
   const [player, setPlayer] = useState("p1");
-  const [lastMove, setLastMove] = useState(null);
+  const [lastMove, setLastMove] = useState<number|null>(null);
   const [gameStatus, setGameStatus] = useState<GAME_STATUS>(GAME_STATUS.IDLE);
   const [winner, setWinner] = useState("");
   const [dropCol, setDropCol] = useState(-1);
@@ -48,13 +48,13 @@ export default function useBoard() {
       setDropCol(-1);
     }
   }
-  const endGame = () => {
-    setGameStatus(GAME_STATUS.IDLE)
-  }
+  // const endGame = () => {
+  //   setGameStatus(GAME_STATUS.IDLE)
+  // }
   useEffect(() => {
     console.log("dropRow,dropCol", dropRow, dropCol);
   }, [dropRow, dropCol]);
-  const handleClick = (i) => {
+  const handleClick = (i:number) => {
     if (gameStatus !== GAME_STATUS.RUNNING || dropStatus !== "IDLE") return;
     // setDropInProgress(true);
     setDropStatus("IN-PROGRESS");
@@ -86,7 +86,7 @@ export default function useBoard() {
     }
   };
 
-  const handleMouseEnter = (i) => {
+  const handleMouseEnter = (i:number) => {
     if (gameStatus === GAME_STATUS.RUNNING && dropStatus === "IDLE") {
       const col = i % nCols;
       const row = Math.floor(colTop[col]/nCols);
@@ -95,25 +95,25 @@ export default function useBoard() {
     }
   };
 
-  const getCol = (i) => {
+  const getCol = (i:number) => {
     const c = i % nCols;
     const icol = [];
     for (let j = c; j < nRows * nCols; j += nCols) icol.push(board[j]);
     return icol.join("");
   };
 
-  const getRow = (i) => {
+  const getRow = (i:number) => {
     const r = Math.floor(i / nCols);
     const irow = board.slice(r * nCols, (r + 1) * nCols);
     // for (const j = r; j < r+nCols; j++) icol.push(board[j]);
     return irow.join("");
   };
-  const getDiag1 = (i) => {
-    const r = Math.floor(i / nCols);
-    const irow = board.slice(r * nCols, (r + 1) * nCols);
-    // for (const j = r; j < r+nCols; j++) icol.push(board[j]);
-    return irow.join("");
-  };
+  // const getDiag1 = (i:number) => {
+  //   const r = Math.floor(i / nCols);
+  //   const irow = board.slice(r * nCols, (r + 1) * nCols);
+  //   // for (const j = r; j < r+nCols; j++) icol.push(board[j]);
+  //   return irow.join("");
+  // };
   useEffect(() => {
     if (lastMove) {
       const winComb = new Array(X).fill(player).join("");
