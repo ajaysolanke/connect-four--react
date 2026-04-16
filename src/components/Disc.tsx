@@ -4,8 +4,10 @@ export default function Disc({
   t,
   handleClick,
   handleMouseEnter,
+  disabled
 }: {
   t:string,
+  disabled:boolean,
   handleClick:()=>void,
   handleMouseEnter:()=>void}) {
   return (
@@ -15,6 +17,7 @@ export default function Disc({
       }`}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
+      disabled={disabled}
     ></button>
   );
 }

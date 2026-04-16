@@ -14,7 +14,9 @@
   gap: 4px;
   width: auto;
   background-color: mediumblue;
-  /* border: 4px solid #aaa; */
+}
+.board.disabled {
+  filter: brightness(0.75);
 }
 
 .tile {
@@ -24,6 +26,13 @@
   border-radius: 50%;
   transition: all 0.2s ease-out;
   border: none;
+}
+.tile:hover {
+  cursor: pointer;
+}
+
+.tile:disabled {
+  cursor: not-allowed;
 }
 
 .tile-a {

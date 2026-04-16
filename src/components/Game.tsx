@@ -25,47 +25,25 @@ export default function Game(){
 
   return (
     <div>
-
-      {/* <p>
-        Player: {player} [{playerToColor[player]}]
-      </p>
-      <p>Game Status: {gameStatus}</p>
-      <p>Winner: {winner}</p> */}
       <GameStatus gameStatus={gameStatus} player={player} winner={winner} startGame={startGame}/>
       { gameStatus!==GAME_STATUS.IDLE &&
-      <div>
+      <div className={classes['board-container']}>
+        <div className=""></div>
         <DropDisc gameStatus={gameStatus} player={player} dropRow={dropRow} dropCol={dropCol} dropStatus={dropStatus} />
-        {/* <div className={classes["drop-container"]}>
-          {gameStatus === GAME_STATUS.RUNNING &&
-            dropRow >= -1 &&
-            dropCol >= 0 &&
-            dropStatus !== "COMPLETE" && (
-              <DropDisc
-                // key={i}
-                className={`${classes.tile} ${
-                  player === "p1"
-                    ? classes["tile-a"]
-                    : player === "p2"
-                    ? classes["tile-b"]
-                    : ""
-                }`}
-                $top={dropStatus === "IDLE" ? 0 : (dropRow + 1) * 54 + 4}
-                $left={dropCol * 54}
-              />
-            )}
-        </div> */}
-        <div className={classes["board"]}>
+        <div className={`${classes["board"]} ${gameStatus!==GAME_STATUS.RUNNING ? classes['disabled'] : ''}`}>
           {board.map((t, i) => (
             <Disc
               key={i}
               t={t}
               handleClick={() => handleClick(i)}
               handleMouseEnter={() => handleMouseEnter(i)}
+              disabled={gameStatus!==GAME_STATUS.RUNNING}
             />
           ))}
         </div>
       </div>
       }
+      <br/>
       <GameOptions gameStatus={gameStatus} resetGame={resetGame} />
     </div>
   );

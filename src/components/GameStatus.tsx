@@ -1,5 +1,10 @@
 import styled from "styled-components"
 import { GAME_STATUS } from "../App"
+import Button from "./Button";
+
+function playerName(player:string) {
+    return player==='p1'?'Player 1' : player==='p2' ? 'Player 2' : '';
+}
 
 const PlayerIndicator = styled.div<{ $player: string; }>`
     width: 16px;
@@ -18,26 +23,34 @@ export default function GameStatus({gameStatus,player,winner,startGame}:GameStat
     return (
         <div>
             <p>Connect Four is a 2 player game.
-            Each player is assigned tokens of a color(red or yellow).
-            They can play in turns. There is a grid/board with 7 columns and 6 rows.
+                Each player is assigned tokens of a color(red or yellow).
+                They can play in turns. There is a grid/board with 7 columns and 6 rows.
                 A player can only add their colored token in a column at the bottom-most free slot.
-                Whichever player first places 4 of their tokens consecutively in a horizontal, vertical, diagonal fashion, wins. </p>
-            <button onClick={startGame}>Start Game</button>
+                Whichever player first places 4 of their tokens consecutively in a horizontal, vertical, diagonal fashion, wins. 
+            </p>
+            <br/>
+            <Button onClick={startGame}>Start Game</Button>
         </div>
     )
 
     if(gameStatus===GAME_STATUS.END_WIN)
         return (
             <div>
-                <h3>{winner} Won</h3>
-                <button onClick={startGame}>New Game</button>
+                {/* <h3>{playerName(winner)} Won</h3> */}
+                <div style={{ display:'flex', justifyContent: 'center', alignItems:'center', gap: '8px' }}>
+                    <PlayerIndicator $player={winner} />
+                    <h3> {playerName(winner)} Won</h3>
+                </div>
+                <br/>
+                <Button onClick={startGame}>New Game</Button>
             </div>
         )
     if(gameStatus===GAME_STATUS.END_DRAW)
         return (
             <div>
                 <h3>Game Draw</h3>
-                <button onClick={startGame}>New Game</button>
+                <br/>
+                <Button onClick={startGame}>New Game</Button>
             </div>
         )
     
@@ -45,7 +58,7 @@ export default function GameStatus({gameStatus,player,winner,startGame}:GameStat
         return (
             <div style={{ display:'flex', justifyContent: 'center', alignItems:'center', gap: '8px' }}>
                 <PlayerIndicator $player={player} />
-                <h3> {player}'s Turn</h3>
+                <h3> {playerName(player)}'s Turn</h3>
             </div>
         )
 }
